@@ -1,0 +1,29 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block content %}
+<div class="login_content">
+    <div class="login">
+        <div class="login_logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+        </div>
+        <div class="login_form_div">
+            <div class="register_text">
+                Zarejestruj się, aby przeglądać zdjęcia i filmy znajomych.
+            </div>
+            <form class="login_form" action="">
+                <input type="email" name="email" placeholder="Adres e-mail">
+                <input type="text" name="f_name" placeholder="Imię">
+                <input type="text" name="l_name" placeholder="Nazwisko">
+                <input type="text" name="username" placeholder="Nazwa użytkownika">
+                <input type="password" name="password1" placeholder="Hasło">
+                <input type="password" name="password2" placeholder="Powtórz hasło">
+                <button type="submit">Dalej</button>
+            </form>
+            <p>Rejestrując się, akceptujesz Regulamin. Informacje o tym, jak zbieramy, wykorzystujemy i udostępniamy Twoje dane, zawierają nasze Zasady dotyczące danych. O wykorzystaniu plików cookie i podobnych technologii informują Zasady dotyczące plików cookie.</p>
+        </div>
+    </div>
+    <div class="register">
+        <p>Masz konto? <a href="">Zaloguj się</a></p>
+    </div>
+</div>
+{% endblock %}

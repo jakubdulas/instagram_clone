@@ -1,0 +1,23 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+{% block content %}
+<div class="login_content">
+    <div class="login">
+        <div class="login_logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+        </div>
+        <div class="login_form_div">
+            <form class="login_form" action="">
+                <input type="text" name="username" placeholder="Nazwa użytkownika">
+                <input type="password" name="password" placeholder="Hasło">
+                <button type="submit">Zaloguj się</button>
+            </form>
+            <hr>
+            <a href="#">Nie pamiętasz hasła?</a>
+        </div>
+    </div>
+    <div class="register">
+        <p>Nie masz konta? <a href="">Zarejestuj się</a></p>
+    </div>
+</div>
+{% endblock %}
