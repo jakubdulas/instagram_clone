@@ -9,7 +9,7 @@ body{
 }
 
 nav{
-	height: 6vh;
+	height: 50px;
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
@@ -56,15 +56,11 @@ nav{
 	height: 40%;
 }
 
-section{
-	width: 70%;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-}
+
 
 .timeline{
-	width: 70%;
+	width: 50%;
+	margin: auto;
 }
 
 .post_content{
@@ -100,7 +96,7 @@ section{
 }
 
 .author_image{
-	height: 50px;
+	height: 40px;
 	margin-right: 20px;
 }
 
@@ -191,48 +187,202 @@ section{
 	font-weight: bold;
 }
 
-.side{
-	width: 25%;
-	margin-top: 30px;
-	height: 90vh;
+
+
+
+.login_content{
+	width: 400px;
+    
+    margin: auto;
+    margin-top: 50px;
 }
 
-.view_profile{
+.login{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.login_logo{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.login_logo img{
+    height: 50px;
+}
+
+
+
+.login_form{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    margin: auto;
+}
+
+.login_form input{
+    height: 40px;
+    margin-top: 5px;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.login_form button{
+    margin-top: 13px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bfdff4;
+    color: #fff;
+}
+
+.login_form_div hr{
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+}
+
+.login_form_div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login_form_div p{
+    text-align: center;
+    width: 70%;
+    font-size: 12px;
+    padding: 20px;
+    color: rgb(98, 98, 98);
+}
+
+.login_form_div a{
+    margin-top: 40px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #122975;
+    margin-bottom: 40px;
+}
+
+.register{
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.register p{
+    padding: 20px;
+    
+}
+
+.register a{
+    text-decoration: none;
+    color: #007dd1;
+}
+
+.register_text{
+    width: 70%;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: rgb(98, 98, 98);
+    text-align: center;
+}
+
+.profile_head{
+	width: 70%;
+	margin: auto;
+	display: flex;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+
+.profile_pic_container{
+	width: 150px;
+	margin-left: 50px;
+	margin-right: 50px;
+	
+}
+
+
+.profile_pic{
 	width: 100%;
-	height: 8vh;
+	border-radius: 50%;
+}
+
+.profile_info{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 40px;
+}
+
+.profile_info div{
 	display: flex;
 	align-items: center;
+	height: 80%;
 }
 
-.user_info{
-	margin-left: 15px;
+.profile_info div h1{
+	margin-right: 30px;
+	font-weight: 5;
 }
 
-.side_profile_image{
-	width: 80px;
+.profile_info div button{
+	margin-right: 30px;
+	height: 30px;
+	width: 100px;
+	background-color: #fafafa;
+	border: 2px solid #f2f2f2;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
-.profile_img_side{
-	border-radius: 50%;
-	width: 100%;
+.profile_info div p{
+	margin-right: 40px;
+	font-size: 18px;
 }
 
-.proposals_head{
-	display: flex;
-	justify-content: space-between;
-}
-
-.proposals_txt{
-	color: #a1a1a1;
-	font-size: 20px;
-}
-
-.show_all{
+.profile_info div a{
 	text-decoration: none;
-	color: #000;
+	color: #282828;
+}
+
+.posts{
+	width: 70%;
+	margin: auto;
+	margin-top: 30px;
+	grid-gap: 2.5rem;
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 
+.post_container{
+	overflow: hidden;
+}
+
+hr{
+	width: 70%;
+	margin: auto;
+}
+
+.post_container img{
+	width: 100%;
+    height: 100%;
+    object-fit: cover;   
+}
 
 
 

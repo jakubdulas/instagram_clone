@@ -11,35 +11,11 @@
 <body>
     {% include 'navbar.html' %}
 
-    <section>
-        <div class="timeline">
-        {% block content %}
-        {% endblock %}
-        </div>
-        
-        <div class="side">
-            <div class="view_profile">
-                <div class="side_profile_image">
-                    <img class="profile_img_side" src="{% static 'images/default-profile.jpg' %}" alt="">
-                </div>
-                <div class="user_info">
-                    <a href="" class="username">jakub.dulas</a>
-                    <p>Jakub Dulas</p>
-                </div>
-            </div>
-            <div class="proposals">
-                <div class="proposals_head">
-                    <p class="proposals_txt">Propozycje dla ciebie</p>
-                    <a class="show_all" href="">Zobacz wszystkich</a>
-                </div>
-                <div class="proposal">
-                    
-                </div>
-            </div>
-            <div class="footer">
-
-            </div>
-        </div>
-    </section>
+    
+    
+    {% block content %}
+    {% endblock %}
+    
+    
 </body>
 </html>
