@@ -10,13 +10,14 @@
             <div class="register_text">
                 Zarejestruj się, aby przeglądać zdjęcia i filmy znajomych.
             </div>
-            <form class="login_form" action="">
-                <input type="email" name="email" placeholder="Adres e-mail">
-                <input type="text" name="f_name" placeholder="Imię">
-                <input type="text" name="l_name" placeholder="Nazwisko">
-                <input type="text" name="username" placeholder="Nazwa użytkownika">
-                <input type="password" name="password1" placeholder="Hasło">
-                <input type="password" name="password2" placeholder="Powtórz hasło">
+            <form class="login_form" method="POST">
+                {% csrf_token %}
+                {{form.email}}
+                {{form.first_name}}
+                {{form.last_name}}
+                {{form.username}}
+                {{form.password1}}
+                {{form.password2}}
                 <button type="submit">Dalej</button>
             </form>
             <p>Rejestrując się, akceptujesz Regulamin. Informacje o tym, jak zbieramy, wykorzystujemy i udostępniamy Twoje dane, zawierają nasze Zasady dotyczące danych. O wykorzystaniu plików cookie i podobnych technologii informują Zasady dotyczące plików cookie.</p>

@@ -21,6 +21,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
     body = models.TextField(null=True, blank=True)
     #likes = models.ManyToManyField(Profile, related_name='likes', null=True, blank=True)
 
