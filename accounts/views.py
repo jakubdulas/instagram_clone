@@ -3,14 +3,26 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
-
+from .decorators import *
 # Create your views here.
 
 def home(request):
-    
+    if request.user.is_authenticated:
 
-    context = {}
-    return render(request, 'home.html', context)
+        context = {}
+        return render(request, 'home.html', context)
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+
+        return render(request, 'login.html')
 
 def profile(request, pk):
     profile = Profile.objects.get(pk=pk)
@@ -18,7 +30,7 @@ def profile(request, pk):
 
     return render(request, 'profile.html', context)
 
-
+'''
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -31,7 +43,9 @@ def loginPage(request):
             return redirect('home')
 
     return render(request, 'login.html')
+'''
 
+@unauthenticated_user
 def registerPage(request):
     form = RegisterForm()
 
@@ -43,3 +57,6 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+def logoutUser(request):
+	logout(request)
+	return redirect('home')

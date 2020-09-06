@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    #profile_pic = models.ImageField()
+    profile_pic = models.ImageField(null=True, blank=True, upload_to='profile_images/', default='profile_images/default-profile.jpg')
     bio = models.TextField(blank=True)
     #following = models.ManyToManyField(User, blank=True,  related_name='following')
 

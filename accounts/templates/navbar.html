@@ -1,5 +1,5 @@
 {% load static %}
-
+{%  if user.is_authenticated %}
 <nav>
     <div class="container">
         <div class="logo-container">
@@ -33,3 +33,5 @@
         </div>
     </div>
 </nav>
+
+{% endif %}
