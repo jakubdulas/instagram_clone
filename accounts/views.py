@@ -8,8 +8,17 @@ from .decorators import *
 
 def home(request):
     if request.user.is_authenticated:
+        user = request.user
+        profile = Profile.objects.get(user=user)
+        posts = []
+        for u in profile.following.all():
+            following_profile = Profile.objects.get(user=u)
+            for p in following_profile.following_posts():
+                posts.append(p)
+        for p in profile.post_set.all():
+            posts.append(p)
 
-        context = {}
+        context = {'profile': profile, 'posts': posts}
         return render(request, 'home.html', context)
     else:
         if request.method == 'POST':
