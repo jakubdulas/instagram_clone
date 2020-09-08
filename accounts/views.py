@@ -39,20 +39,6 @@ def profile(request, pk):
 
     return render(request, 'profile.html', context)
 
-'''
-def loginPage(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-
-    return render(request, 'login.html')
-'''
 
 @unauthenticated_user
 def registerPage(request):
@@ -69,3 +55,17 @@ def registerPage(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('home')
+
+@login_required(redirect_field_name='home')
+def likePost(request, pk):
+    liked = False
+    post = Post.objects.get(pk=pk)
+    if request.user in post.likes.all():
+        liked = False
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+        liked = True
+
+    print(liked)
+    return redirect('home')

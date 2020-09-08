@@ -27,8 +27,12 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     image = models.ImageField(null=True, blank=True, upload_to='images/')
     body = models.TextField(null=True, blank=True)
-    #likes = models.ManyToManyField(Profile, related_name='likes', null=True, blank=True)
-
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    #liked = models.BooleanField(null=True, blank=True)
     def __str__(self):
         return str(self.author)
+
+    @property
+    def total_likes(self):
+        return self.likes.all().count()
 
