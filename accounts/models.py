@@ -28,7 +28,7 @@ class Post(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to='images/')
     body = models.TextField(null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
-    #liked = models.BooleanField(null=True, blank=True)
+    liked = models.BooleanField(null=True, blank=True, default=False)
     def __str__(self):
         return str(self.author)
 

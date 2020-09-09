@@ -35,7 +35,8 @@ def home(request):
 
 def profile(request, pk):
     profile = Profile.objects.get(pk=pk)
-    context = {'profile': profile}
+    posts = Post.objects.filter(author=profile)
+    context = {'profile': profile, 'posts': posts}
 
     return render(request, 'profile.html', context)
 
@@ -48,7 +49,7 @@ def registerPage(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('home')
     context = {'form': form}
     return render(request, 'register.html', context)
 
@@ -58,14 +59,13 @@ def logoutUser(request):
 
 @login_required(redirect_field_name='home')
 def likePost(request, pk):
-    liked = False
     post = Post.objects.get(pk=pk)
     if request.user in post.likes.all():
-        liked = False
+        post.liked = False
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-        liked = True
+        post.liked = True
 
-    print(liked)
+    print(post.liked)
     return redirect('home')
