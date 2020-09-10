@@ -36,3 +36,20 @@ class Post(models.Model):
     def total_likes(self):
         return self.likes.all().count()
 
+    def post_comments(self):
+        return self.comment_set.all()
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    body = models.TextField()
+    likes = models.ManyToManyField(User, blank=True, related_name="commentLikes")
+
+    def __str__(self):
+        return str(self.post.id) + ' | ' + str(self.post.author)
+
+    @property
+    def total_likes(self):
+        return self.likes.all().count()
+
