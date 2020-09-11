@@ -8,10 +8,6 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     following = models.ManyToManyField(User, blank=True,  related_name='following')
 
-    class Meta:
-        ordering = ['-id']
-
-
     def __str__(self):
         return self.user.username
 
@@ -25,12 +21,16 @@ class Profile(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    image = models.ImageField(null=True, blank=True, upload_to='images/')
+    image = models.ImageField(null=True, upload_to='images/')
     body = models.TextField(null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     liked = models.BooleanField(null=True, blank=True, default=False)
+    
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
-        return str(self.author)
+        return str(self.author) + ' | '+ str(self.id)
 
     @property
     def total_likes(self):

@@ -16,3 +16,9 @@ class RegisterForm(UserCreationForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Nazwisko'
         self.fields['password1'].widget.attrs['placeholder'] = 'Hasło'
         self.fields['password2'].widget.attrs['placeholder'] = 'Powtórz hasło'
+
+
+class AddPostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['image', 'body']

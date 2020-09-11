@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegisterForm
+from .forms import *
 from .decorators import *
+from django.contrib.auth.models import User
+from django.views.generic import CreateView
 # Create your views here.
 
 def home(request):
@@ -33,8 +35,9 @@ def home(request):
 
         return render(request, 'login.html')
 
-def profile(request, pk):
-    profile = Profile.objects.get(pk=pk)
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=profile)
     context = {'profile': profile, 'posts': posts}
 
@@ -69,3 +72,17 @@ def likePost(request, pk):
 
     print(post.liked)
     return redirect('home')
+
+@login_required(redirect_field_name='home')
+def add_post(request):
+    form = AddPostForm()
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES)
+        profile = Profile.objects.get(user=request.user)
+        form.instance.author = profile
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'add_post.html', context)

@@ -41,7 +41,7 @@
             
             <p class="total_likes">Liczba polubień: {{post.total_likes}}</p>
             <div class="description">
-                <a href="" class="username">{{post.author}}</a> <p class="text">asd</p>
+                <a href="" class="username">{{post.author}}</a> <p class="text">{{post.body}}</p>
             </div>
             <div class="comments">
                 {% for comment in post.post_comments %}
