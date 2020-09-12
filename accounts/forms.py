@@ -22,3 +22,9 @@ class AddPostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['image', 'body']
+
+class EditPostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['body',]
+

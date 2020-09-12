@@ -86,3 +86,27 @@ def add_post(request):
 
     context = {'form': form}
     return render(request, 'add_post.html', context)
+
+@login_required(redirect_field_name='home')
+def delete_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    profile = post.author
+    if request.user == profile.user:
+        post.delete()
+    return redirect('home')
+
+
+@login_required(redirect_field_name='home')
+@is_user_author
+def edit_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    form = EditPostForm(instance=post)
+    if request.method == 'POST':
+        form = EditPostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {'form': form}
+    return render(request, 'edit_post.html', context)
+
+    
