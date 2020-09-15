@@ -10,6 +10,7 @@ urlpatterns = [
     path('add_post/', add_post, name='add_post'),
     path('delete_post/<int:pk>', delete_post, name='delete_post'),
     path('edit_post/<int:pk>', edit_post, name='edit_post'),
+    path('follow/<int:pk>', follow, name='follow'),
 
 
 

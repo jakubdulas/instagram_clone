@@ -6,7 +6,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='profile_images/', default='profile_images/default-profile.jpg')
     bio = models.TextField(blank=True)
-    following = models.ManyToManyField(User, blank=True,  related_name='following')
+    following = models.ManyToManyField(User, related_name='following')
+    followers = models.ManyToManyField(User, related_name='followers')
 
     def __str__(self):
         return self.user.username
@@ -15,7 +16,7 @@ class Profile(models.Model):
     def total_following(self):
         return self.following.all().count()
 
-    def following_posts(self):
+    def profile_posts(self):
         return self.post_set.all()
 
 
@@ -23,7 +24,7 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     image = models.ImageField(null=True, upload_to='images/')
     body = models.TextField(null=True, blank=True)
-    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='likes')
     liked = models.BooleanField(null=True, blank=True, default=False)
     
     class Meta:
@@ -53,3 +54,4 @@ class Comment(models.Model):
     def total_likes(self):
         return self.likes.all().count()
 
+    

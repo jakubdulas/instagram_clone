@@ -6,6 +6,8 @@ from .forms import *
 from .decorators import *
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 def home(request):
@@ -15,7 +17,8 @@ def home(request):
         posts = []
         for u in profile.following.all():
             following_profile = Profile.objects.get(user=u)
-            for p in following_profile.following_posts():
+            print(u.username)
+            for p in following_profile.profile_posts():
                 posts.append(p)
         for p in profile.post_set.all():
             posts.append(p)
@@ -56,11 +59,12 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+@login_required(login_url='home')
 def logoutUser(request):
 	logout(request)
 	return redirect('home')
 
-@login_required(redirect_field_name='home')
+@login_required(login_url='home')
 def likePost(request, pk):
     post = Post.objects.get(pk=pk)
     if request.user in post.likes.all():
@@ -69,11 +73,9 @@ def likePost(request, pk):
     else:
         post.likes.add(request.user)
         post.liked = True
-
-    print(post.liked)
     return redirect('home')
 
-@login_required(redirect_field_name='home')
+@login_required(login_url='home')
 def add_post(request):
     form = AddPostForm()
     if request.method == 'POST':
@@ -87,7 +89,7 @@ def add_post(request):
     context = {'form': form}
     return render(request, 'add_post.html', context)
 
-@login_required(redirect_field_name='home')
+@login_required(login_url='home')
 def delete_post(request, pk):
     post = Post.objects.get(pk=pk)
     profile = post.author
@@ -96,7 +98,7 @@ def delete_post(request, pk):
     return redirect('home')
 
 
-@login_required(redirect_field_name='home')
+@login_required(login_url='home')
 @is_user_author
 def edit_post(request, pk):
     post = Post.objects.get(pk=pk)
@@ -109,4 +111,16 @@ def edit_post(request, pk):
     context = {'form': form}
     return render(request, 'edit_post.html', context)
 
-    
+@login_required(login_url='home')
+def follow(request, pk):
+    if request.method == 'POST':
+        logged_profile = Profile.objects.get(user=request.user)
+        profile_to_follow = Profile.objects.get(pk=pk)
+        if logged_profile.following.filter(id=profile_to_follow.user.id).exists():
+            logged_profile.following.remove(profile_to_follow.user)
+            #profile_to_follow.followers.remove(logged_profile.user)
+        else:
+            logged_profile.following.add(profile_to_follow.user)
+            #profile_to_follow.followers.add(logged_profile.user)
+            
+    return HttpResponseRedirect(reverse('profile', args=[str(profile_to_follow.user.username)]))
