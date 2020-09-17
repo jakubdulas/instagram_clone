@@ -14,15 +14,15 @@ def home(request):
     if request.user.is_authenticated:
         user = request.user
         profile = Profile.objects.get(user=user)
+        
         posts = []
         for u in profile.following.all():
             following_profile = Profile.objects.get(user=u)
-            print(u.username)
             for p in following_profile.profile_posts():
                 posts.append(p)
         for p in profile.post_set.all():
             posts.append(p)
-
+    
         context = {'profile': profile, 'posts': posts}
         return render(request, 'home.html', context)
     else:
@@ -118,9 +118,31 @@ def follow(request, pk):
         profile_to_follow = Profile.objects.get(pk=pk)
         if logged_profile.following.filter(id=profile_to_follow.user.id).exists():
             logged_profile.following.remove(profile_to_follow.user)
-            #profile_to_follow.followers.remove(logged_profile.user)
+            profile_to_follow.followers.remove(logged_profile.user)
         else:
             logged_profile.following.add(profile_to_follow.user)
-            #profile_to_follow.followers.add(logged_profile.user)
+            profile_to_follow.followers.add(logged_profile.user)
             
     return HttpResponseRedirect(reverse('profile', args=[str(profile_to_follow.user.username)]))
+
+@login_required(login_url='home')
+def add_comment(request, pk):
+    form = AddCommentForm()
+    post = Post.objects.get(pk=pk)
+    author = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        form.instance.author = author
+        form.instance.post = post
+        if form.is_valid():
+            form.save()
+    return redirect('home')
+
+@login_required(login_url='home')
+def like_comment(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    if request.user in comment.likes.all():
+        comment.likes.remove(request.user)
+    else:
+        comment.likes.add(request.user)
+    return redirect('home')

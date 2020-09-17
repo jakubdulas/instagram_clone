@@ -28,3 +28,7 @@ class EditPostForm(ModelForm):
         model = Post
         fields = ['body',]
 
+class AddCommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment_body', ]

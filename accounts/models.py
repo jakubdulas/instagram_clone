@@ -20,6 +20,7 @@ class Profile(models.Model):
         return self.post_set.all()
 
 
+
 class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     image = models.ImageField(null=True, upload_to='images/')
@@ -44,7 +45,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    body = models.TextField()
+    comment_body = models.TextField()
     likes = models.ManyToManyField(User, blank=True, related_name="commentLikes")
 
     def __str__(self):
@@ -55,3 +56,4 @@ class Comment(models.Model):
         return self.likes.all().count()
 
     
+
